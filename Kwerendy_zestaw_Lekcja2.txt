@@ -1,0 +1,77 @@
+Kwerendy_zestaw_Lekcja2
+zadanie 1
+a) 
+SELECT id_postaci FROM postac WHERE rodzaj='wiking' and nazwa NOT in ('Bjorn', 'Tesciowa') ORDER BY wiek DESC;
+DELETE FROM postac WHERE id_postaci=5;
+DELETE FROM postac WHERE id_postaci=7;
+
+b)
+ALTER TABLE postac DROP CONSTRAINT postac_ibfk_1;
+ALTER TABLE walizka DROP CONSTRAINT walizka_ibfk_1;
+ALTER TABLE przetwory DROP CONSTRAINT przetwory_ibfk_1;
+ALTER TABLE przetwory DROP CONSTRAINT przetwor_ibfk_2;
+ALTER TABLE postac DROP id_postaci;
+
+zadanie 2
+a)
+ALTER TABLE postac ADD pesel varchar(11)NOT NULL ;
+UPDATE postac SET pesel = '13323212123' WHERE nazwa = 'Bjorn';
+UPDATE postac SET pesel = '12333212123' WHERE nazwa = 'Drozd';
+UPDATE postac SET pesel = '12323412123' WHERE nazwa = 'Tesciowa';
+UPDATE postac SET pesel = '12325614123' WHERE nazwa = 'Boleslaw';
+UPDATE postac SET pesel = '12323234123' WHERE nazwa = 'Legetha';
+UPDATE postac SET pesel = '12323342423' WHERE nazwa = 'Ivar';
+
+ALTER TABLE postac
+ADD PRIMARY KEY (pesel);
+
+b)ALTER TABLE postac MODIFY COLUMN rodzaj ENUM ('wiking', 'kobieta', 'ptak', 'syrena')
+
+c)
+INSERT INTO postac (nazwa, rodzaj, pesel) VALUES ('Gertruda Nieszczera', 'syrena', '16723878712');
+
+zadanie 3
+a)
+UPDATE postac SET nazwa_statku='Genowefa' WHERE nazwa LIKE '%a%';
+
+b)
+UPDATE statek 
+SET max_ladownosc=max_ladownosc*0.7 
+WHERE data_wodowania BETWEEN '1901-01-01' AND '2000-12-31';
+
+c)
+ALTER TABLE postac
+ADD CONSTRAINT check_wiek CHECK (wiek <= 1000);
+
+zadanie 4
+a)
+ALTER TABLE postac MODIFY COLUMN rodzaj ENUM ('wiking', 'kobieta', 'ptak', 'syrena', 'waz');
+INSERT INTO postac (nazwa, pesel, rodzaj) VALUES ('Loko', '32312398723', 'waz');
+
+b)
+CREATE TABLE marynarz (
+nazwa VARCHAR(40),
+rodzaj ENUM ('wiking', 'kobieta', 'ptak', 'syrena', 'waz'),
+data_ur DATE,
+funkcja ENUM('kapitan'), 
+nazwa_statku VARCHAR(40),
+pesel VARCHAR(11),
+PRIMARY KEY (pesel));
+
+c) 
+ALTER TABLE marynarz ADD FOREIGN KEY (nazwa_statku) REFERENCES statek(nazwa_statku);
+
+Zadanie 5
+a) UPDATE postac SET nazwa_statku='NULL';
+b) DELETE FROM postac WHERE nazwa='Gerald';
+c) DELETE FROM statek;
+d) 
+ALTER TABLE marynarz DROP CONSTRAINT marynarz_ibfk_1;
+DROP TABLE statek;
+e)
+CREATE TABLE zwierz (
+id INT NOT NULL AUTO_INCREMENT,
+nazwa VARCHAR(40),
+wiek INT,
+PRIMARY KEY (id)
+);
