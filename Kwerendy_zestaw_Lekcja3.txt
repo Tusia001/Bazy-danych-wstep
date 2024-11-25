@@ -1,0 +1,50 @@
+	Zadanie 1
+1)
+CREATE TABLE szczepanskam.kreatura AS SELECT * FROM wikingowie.kreatura;
+CREATE TABLE szczepanskam.zasob AS SELECT * FROM wikingowie.zasob;
+CREATE TABLE szczepanskam.ekwipunek AS SELECT * FROM wikingowie.ekwipunek;
+
+2) 
+SELECT * FROM zasob;
+
+3)
+SELECT * FROM zasob WHERE rodzaj='jedzenie';
+
+4)
+SELECT idZasobu, ilosc FROM ekwipunek WHERE idKreatury=1 OR idKreatury=3 OR idKreatury=5;
+
+
+	Zadanie 2
+1)
+SELECT nazwa FROM kreatura WHERE rodzaj NOT LIKE 'wiedzma' AND udzwig>=5;
+
+2)
+SELECT nazwa FROM zasob WHERE waga BETWEEN 2 AND 5;
+
+3)
+SELECT nazwa FROM kreatura WHERE nazwa LIKE '%or%' AND udzwig BETWEEN 30 AND 70;
+
+
+	Zadanie 3
+1)
+SELECT nazwa FROM zasob WHERE MONTH(dataPozyskania)=7 OR MONTH(dataPozyskania)=8;
+
+2)
+SELECT nazwa FROM zasob WHERE rodzaj IS NOT  NULL ORDER BY waga ASC;
+
+3)
+SELECT nazwa FROM kreatura WHERE dataUr IS NOT NULL ORDER BY dataUR ASC LIMIT 5;
+
+
+	Zadanie 4
+1)
+SELECT rodzaj FROM zasob  GROUP BY rodzaj  HAVING COUNT(rodzaj) = 1; 
+
+2)
+SELECT CONCAT(nazwa, '-', rodzaj) AS nazwa_rodzaj FROM kreatura WHERE
+rodzaj LIKE 'wi%';
+
+3)
+SELECT nazwa, SUM(ilosc * waga) AS calkowita_waga FROM zasob
+WHERE YEAR(dataPozyskania) BETWEEN 2000 AND 2007 GROUP BY nazwa;
+
