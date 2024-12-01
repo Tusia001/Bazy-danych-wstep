@@ -48,3 +48,16 @@ rodzaj LIKE 'wi%';
 SELECT nazwa, SUM(ilosc * waga) AS calkowita_waga FROM zasob
 WHERE YEAR(dataPozyskania) BETWEEN 2000 AND 2007 GROUP BY nazwa;
 
+	Zadanie 5
+1)
+SELECT nazwa, waga AS masa_brutto, waga*0.7 AS masa_netto, waga*0.3 AS masa_odpadkow FROM zasob WHERE rodzaj = 'jedzenie';
+	
+2)
+SELECT * FROM zasob WHERE rodzaj IS NULL;
+
+3)
+ SELECT DISTINCT rodzaj FROM zasob WHERE nazwa LIKE 'Ba%' OR nazwa LIKE '%os' ORDER BY rodzaj ASC;
+
+
+
+
