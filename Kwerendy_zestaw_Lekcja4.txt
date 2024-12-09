@@ -56,3 +56,5 @@ SELECT k1.nazwa AS kreatura_1, k2.nazwa AS kreatura_2 FROM kreatura k1 INNER JOI
 SELECT kreatura.nazwa, AVG(zasob.waga) AS srednia_waga FROM kreatura INNER JOIN ekwipunek ON kreatura.idKreatury=ekwipunek.idKreatury  INNER JOIN zasob ON ekwipunek.idZasobu = zasob.idZasobu WHERE kreatura.rodzaj NOT LIKE 'małpa' AND kreatura.rodzaj NOT LIKE 'wąż' AND ekwipunek.ilosc <30 GROUP BY kreatura.nazwa;
 
 2)
+SELECT rodzaj, nazwa AS najmłodsza_kreatura, dataUr AS data_urodzenia_najmłodszej FROM kreatura WHERE dataUr = (SELECT MAX(dataUr) FROM kreatura k WHERE k.rodzaj = kreatura.rodzaj UNION ALL SELECT rodzaj, nazwa AS najstarsza_kreatura, dataUr AS data_urodzenia_najstarszej FROM kreatura
+WHERE dataUr = (SELECT MIN(dataUr) FROM kreatura k WHERE k.rodzaj = kreatura.rodzaj);
