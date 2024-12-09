@@ -1,0 +1,47 @@
+	Zadanie 1
+1)
+SELECT AVG(waga) AS srednia_waga FROM postac WHERE rodzaj='wiking';
+
+2)
+SELECT AVG(waga) AS srednia_waga, COUNT(idKreatury) AS liczba, rodzaj FROM kreatura GROUP BY rodzaj;
+
+3)
+SELECT AVG(YEAR(CURDATE()) - YEAR(dataUr)) AS sredni_wiek, rodzaj FROM kreatura GROUP BY rodzaj;
+
+	Zadanie 2
+1)
+SELECT rodzaj, SUM(waga) FROM zasob GROUP BY rodzaj;
+
+2)
+SELECT nazwa, AVG(waga) AS srednia_waga FROM zasob WHERE ilosc >= 4 GROUP BY nazwa HAVING SUM(waga)>10;
+
+3)
+SELECT rodzaj, COUNT(nazwa) AS liczba_unikalnych_nazw FROM zasob GROUP BY rodzaj HAVING MIN(ilosc)>1;
+
+
+	Zadanie 3
+1)
+ SELECT
+    ->     kreatura.nazwa,
+    ->     COALESCE(SUM(ekwipunek.ilosc),0) AS ilosc_zasobow
+    -> FROM
+    ->     kreatura
+    -> LEFT JOIN
+    ->     ekwipunek
+    -> ON
+    ->     kreatura.idKreatury = ekwipunek.idKreatury
+    -> GROUP BY
+    ->     kreatura.nazwa;
+
+2)
+SELECT kreatura.nazwa AS kreatura, zasob.nazwa AS zasob FROM      kreatura INNER JOIN ekwipunek ON kreatura.idKreatury = ekwipunek.idKreatury INNER JOIN zasob ON ekwipunek.idZasobu = zasob.idZasobu WHERE zasob.nazwa IS NOT NULL ORDER BY kreatura.nazwa ASC;
+
+3) 
+SELECT kreatura.nazwa FROM kreatura LEFT JOIN ekwipunek ON kreatura.idKreatury = ekwipunek.idKreatury GROUP BY kreatura.nazwa HAVING SUM(ekwipunek.ilosc) IS NULL;
+
+
+	Zadanie 4
+1)
+SELECT kreatura.nazwa, zasob.nazwa AS zasob FROM kreatura INNER JOIN ekwipunek ON kreatura.idKreatury = ekwipunek.idKreatury INNER JOIN zasob ON ekwipunek.idZasobu = zasob.idZasobu WHERE kreatura.rodzaj = 'wiking' AND YEAR(kreatura.dataUr) BETWEEN 1670 AND 1679 ORDER BY kreatura.nazwa ASC;
+
+2)
