@@ -52,7 +52,17 @@ GROUP BY wyprawa.nazwa
 HAVING liczba_znakow < 400;
 
 2)
-SELECT wyprawa.nazwa, 	
+SELECT wyprawa.nazwa AS nazwa_wyprawy, SUM(zasob.waga * ekwipunek.ilosc) / COUNT(uczestnicy.id_uczestnika) AS srednia_waga_zasobow
+FROM wyprawa INNER JOIN uczestnicy ON wyprawa.id_wyprawy = uczestnicy.id_wyprawy INNER JOIN ekwipunek ON uczestnicy.id_uczestnika = ekwipunek.idKreatury
+INNER JOIN zasob ON ekwipunek.idZasobu = zasob.idZasobu GROUP BY wyprawa.nazwa;
+
+Zadanie 5
+1)
+SELECT kreatura.nazwa AS nazwa_kreatury DATEDIFF(wyprawa.data_rozpoczecia, kreatura.dataUr) AS wiek_w_dniach, wyprawa.nazwa AS nazwa_wyprawy
+FROM kreatura
+INNER JOIN uczestnicy ON kreatura.idKreatury = uczestnicy.id_uczestnika INNER JOIN wyprawa ON uczestnicy.id_wyprawy = wyprawa.id_wyprawy INNER JOIN etapy_wyprawy ON wyprawa.id_wyprawy = etapy_wyprawy.idWyprawy INNER JOIN sektor ON etapy_wyprawy.sektor = sektor.id_sektora
+WHERE sektor.nazwa = 'chatka dziadka';
+
 
 
 
